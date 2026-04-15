@@ -109,7 +109,7 @@ def main():
 	parser = argparse.ArgumentParser(description="Run VLM inference benchmark on videos")
 	parser.add_argument("--video_dir", type=str, default="./dataset/climbing_stair",
 					 help="Directory containing mp4/mkv files")
-	parser.add_argument("--model_id", type=str, default="google/gemma-4-E4B-it",
+	parser.add_argument("--model_id", type=str, default="google/gemma-3-4b-it",
 					 help="Hugging Face model ID")
 	parser.add_argument("--num_frames", type=int, default=8,
 					 help="Fixed number of sampled frames per video")
@@ -351,18 +351,20 @@ def main():
 				)
 
 		logging.info(f"\n{'=' * 20} Benchmark Summary {'=' * 20}\n")
+
 		logging.info(f"Input")
 		logging.info(f"	Model: {model_id}")
 		logging.info(f"	Hardware Name  : {hardware_name}")
 		logging.info(f"	Video Dir      : {video_dir}")
 		logging.info(f"	Fixed Frames   : {args.num_frames}")
+
 		logging.info("\nOutput")
 		logging.info(f"	Average Query Latency: {avg_query_latency_ms:.2f} ms")
-		logging.info(f"	Frames Per Second: {avg_frames_per_second:.4f}")
+		logging.info(f"	Frames Per Second (FPS): {avg_frames_per_second:.4f}")
 		if equivalent_real_time_latency is not None:
-			logging.info(f"	Equivalent Real-time Latency: {equivalent_real_time_latency:.4f}")
+			logging.info(f"	Equivalent Real-time Latency (RT Latency): {equivalent_real_time_latency:.4f}")
 		else:
-			logging.info(f"	Equivalent Real-time Latency: N/A")
+			logging.info(f"	Equivalent Real-time Latency (RT Latency): N/A")
 		if peak_vram is not None:
 			logging.info(f"	Peak VRAM Usage: {peak_vram:.4f} GB")
 		else:

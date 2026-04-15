@@ -1,0 +1,170 @@
+開始解析紀錄檔: gemma-4-E4B-8frames/falling_off_chair.log
+成功解析出 20 筆待評估紀錄。
+
+🚀 開始執行 LLM-as-a-Judge 評估...
+
+[1/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_3Jd_MXqwIKc.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: People are in an office setting, possibly working or moving.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Misses falling off chair; vague office description; speculative and unrelated. Concise but not relevant.
+--------------------------------------------------
+[2/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_cGbA0ZsJ-tU.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: People are playfully tumbling and rolling on pavement.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 2
+Reason: Does not mention chair or falling; adds people and pavement; concise.
+--------------------------------------------------
+[3/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_YqW9B4aedKE.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: People are performing various actions in a classroom setting.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 2
+Reason: Fails to mention falling off chair; generic, classroom detail unrelated.
+--------------------------------------------------
+[4/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_l3U5BF9jUa4.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: Person is falling or tumbling on the floor.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 6
+Reason: Captures falling, concise, but omits "off chair" and adds floor detail; slight ambiguity.
+--------------------------------------------------
+[5/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_t3N44ZENWIQ.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: Office scene with people working and supplies.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Fails to mention falling off chair; describes unrelated office scene. Concise but inaccurate with hallucinated details.
+--------------------------------------------------
+[6/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_tCZvKt-dKdY.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: Students are playing or moving around in a classroom.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Fails to capture falling off chair; concise but unrelated and hallucinates classroom context.
+--------------------------------------------------
+[7/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_GotjwB_SgI0.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: People are gathered in dim, dark lighting.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 0
+Reason: Fails to identify falling off chair; unrelated scene description despite concision; includes irrelevant details.
+--------------------------------------------------
+[8/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_fxKsubHkXMc.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: Person skateboarding on a chair in a hall.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 2
+Reason: Incorrect action; hall and skateboard are hallucinations. Concise but inaccurate.
+--------------------------------------------------
+[9/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_8LsomoWHlK0.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: The images depict various physical exercises and stretching routines.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 0
+Reason: Incorrect action; unrelated to falling off chair. Though concise, it hallucinates exercises/stretching.
+--------------------------------------------------
+[10/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_XXN3CgCyEx4.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: Girl dances outside, moving with energy.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 0
+Reason: Incorrect core action; concise but irrelevant with hallucinated context.
+--------------------------------------------------
+[11/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_p8o6EkXONhc.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: The provided images are too blurry and indistinct to accurately describe a main action.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 2
+Reason: Fails to identify action or be concise; only avoids hallucinations.
+--------------------------------------------------
+[12/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_sl_oBU2ukJ8.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: The provided images are too blurry to describe a main action accurately.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Fails to identify action; too long; generic refusal, though non-hallucinatory.
+--------------------------------------------------
+[13/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_f2nOuIPchP8.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: Young people are gathered around a table indoors.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Fails to capture falling action; adds unrelated scene details, though concise.
+--------------------------------------------------
+[14/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_vSyIph8s85U.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: The person is performing a dance or acrobatic move.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 2
+Reason: Incorrect action; concise but misidentifies falling as dancing, introducing hallucination.
+--------------------------------------------------
+[15/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_Zi0fm17UBZE.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: People are gathered around a table in a dimly lit room.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 0
+Reason: Misses falling-off-chair action; overlength, irrelevant scene details, possible hallucination.
+--------------------------------------------------
+[16/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_QQmQnfEXdOE.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: Person relaxing while using a laptop computer.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Fails to identify falling; mentions laptop, unrelated. Concise but wrong.
+--------------------------------------------------
+[17/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_qkCEuMm9vnY.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: Person is moving a large object in a warehouse.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 0
+Reason: Incorrect action; unrelated warehouse scenario. Concise but irrelevant and hallucinatory.
+--------------------------------------------------
+[18/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_XMKm4hjLFXk.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: The videos show people moving in a classroom setting.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Misses falling off chair; generic scene description; concise but irrelevant and possibly hallucinated.
+--------------------------------------------------
+[19/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_zNx9s_XbkUQ.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: People relax and enjoy the sunny waterfront park.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 0
+Reason: Fails to mention falling off chair; unrelated scene description despite brevity.
+--------------------------------------------------
+[20/20] 正在評估影片: ./dataset/falling_off_chair/falling_off_chair_1RZYhr6hly4.mp4
+Ground Truth: falling off chair
+🤖 VLM 回答內容: A young child is lying down on a couch.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Incorrect action and object; adds couch/child details. Concise but irrelevant.
+--------------------------------------------------
+
+📊 評估總結
+總分: 24
+有效樣本數: 20
+平均分: 1.20

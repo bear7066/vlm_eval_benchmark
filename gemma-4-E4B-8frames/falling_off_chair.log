@@ -1,0 +1,231 @@
+載入模型與處理器: google/gemma-4-E4B-it ... 
+
+
+從 ./dataset/falling_off_chair 尋找，共找到 43 支影片。
+
+開始測試，隨機抽取 20 支影片進行推論...
+
+Hardware Name: Tesla V100-SXM2-32GB
+Fixed Frames : 8
+
+============================================================
+[1/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_3Jd_MXqwIKc.mp4
+影片長度: 6.07 sec
+Average Query Latency: 4822.15 ms
+TTFT: 3954.37 ms
+Frames Per Second: 1.66
+Throughput: 2.49 tokens/sec
+模型回答: People are in an office setting, possibly working or moving.
+============================================================
+
+============================================================
+[2/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_cGbA0ZsJ-tU.mp4
+影片長度: 9.87 sec
+Average Query Latency: 4245.32 ms
+TTFT: 3628.08 ms
+Frames Per Second: 1.88
+Throughput: 2.12 tokens/sec
+模型回答: People are playfully tumbling and rolling on pavement.
+============================================================
+
+============================================================
+[3/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_YqW9B4aedKE.mp4
+影片長度: 11.00 sec
+Average Query Latency: 4337.58 ms
+TTFT: 3632.84 ms
+Frames Per Second: 1.84
+Throughput: 2.31 tokens/sec
+模型回答: People are performing various actions in a classroom setting.
+============================================================
+
+============================================================
+[4/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_l3U5BF9jUa4.mp4
+影片長度: 12.05 sec
+Average Query Latency: 4247.29 ms
+TTFT: 3627.03 ms
+Frames Per Second: 1.88
+Throughput: 2.12 tokens/sec
+模型回答: Person is falling or tumbling on the floor.
+============================================================
+
+============================================================
+[5/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_t3N44ZENWIQ.mp4
+影片長度: 11.71 sec
+Average Query Latency: 4175.29 ms
+TTFT: 3627.08 ms
+Frames Per Second: 1.92
+Throughput: 1.92 tokens/sec
+模型回答: Office scene with people working and supplies.
+============================================================
+
+============================================================
+[6/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_tCZvKt-dKdY.mp4
+影片長度: 5.86 sec
+Average Query Latency: 4321.85 ms
+TTFT: 3625.62 ms
+Frames Per Second: 1.85
+Throughput: 2.31 tokens/sec
+模型回答: Students are playing or moving around in a classroom.
+============================================================
+
+============================================================
+[7/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_GotjwB_SgI0.mp4
+影片長度: 11.05 sec
+Average Query Latency: 4261.28 ms
+TTFT: 3629.17 ms
+Frames Per Second: 1.88
+Throughput: 2.11 tokens/sec
+模型回答: People are gathered in dim, dark lighting.
+============================================================
+
+============================================================
+[8/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_fxKsubHkXMc.mp4
+影片長度: 2.63 sec
+Average Query Latency: 4254.26 ms
+TTFT: 3625.91 ms
+Frames Per Second: 1.88
+Throughput: 2.12 tokens/sec
+模型回答: Person skateboarding on a chair in a hall.
+============================================================
+
+============================================================
+[9/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_8LsomoWHlK0.mp4
+影片長度: 13.40 sec
+Average Query Latency: 4327.20 ms
+TTFT: 3632.66 ms
+Frames Per Second: 1.85
+Throughput: 2.31 tokens/sec
+模型回答: The images depict various physical exercises and stretching routines.
+============================================================
+
+============================================================
+[10/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_XXN3CgCyEx4.mp4
+影片長度: 10.08 sec
+Average Query Latency: 4163.33 ms
+TTFT: 3625.54 ms
+Frames Per Second: 1.92
+Throughput: 1.92 tokens/sec
+模型回答: Girl dances outside, moving with energy.
+============================================================
+
+============================================================
+[11/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_p8o6EkXONhc.mp4
+影片長度: 14.53 sec
+Average Query Latency: 4723.87 ms
+TTFT: 3629.87 ms
+Frames Per Second: 1.69
+Throughput: 3.18 tokens/sec
+模型回答: The provided images are too blurry and indistinct to accurately describe a main action.
+============================================================
+
+============================================================
+[12/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_sl_oBU2ukJ8.mp4
+影片長度: 10.36 sec
+Average Query Latency: 4565.47 ms
+TTFT: 3623.99 ms
+Frames Per Second: 1.75
+Throughput: 2.85 tokens/sec
+模型回答: The provided images are too blurry to describe a main action accurately.
+============================================================
+
+============================================================
+[13/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_f2nOuIPchP8.mp4
+影片長度: 14.44 sec
+Average Query Latency: 4257.98 ms
+TTFT: 3628.62 ms
+Frames Per Second: 1.88
+Throughput: 2.11 tokens/sec
+模型回答: Young people are gathered around a table indoors.
+============================================================
+
+============================================================
+[14/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_vSyIph8s85U.mp4
+影片長度: 12.92 sec
+Average Query Latency: 4482.07 ms
+TTFT: 3692.88 ms
+Frames Per Second: 1.78
+Throughput: 2.45 tokens/sec
+模型回答: The person is performing a dance or acrobatic move.
+============================================================
+
+============================================================
+[15/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_Zi0fm17UBZE.mp4
+影片長度: 10.06 sec
+Average Query Latency: 4460.60 ms
+TTFT: 3588.73 ms
+Frames Per Second: 1.79
+Throughput: 2.69 tokens/sec
+模型回答: People are gathered around a table in a dimly lit room.
+============================================================
+
+============================================================
+[16/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_QQmQnfEXdOE.mp4
+影片長度: 13.71 sec
+Average Query Latency: 4171.69 ms
+TTFT: 3628.08 ms
+Frames Per Second: 1.92
+Throughput: 1.92 tokens/sec
+模型回答: Person relaxing while using a laptop computer.
+============================================================
+
+============================================================
+[17/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_qkCEuMm9vnY.mp4
+影片長度: 10.73 sec
+Average Query Latency: 4340.85 ms
+TTFT: 3631.73 ms
+Frames Per Second: 1.84
+Throughput: 2.30 tokens/sec
+模型回答: Person is moving a large object in a warehouse.
+============================================================
+
+============================================================
+[18/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_XMKm4hjLFXk.mp4
+影片長度: 4.07 sec
+Average Query Latency: 4331.09 ms
+TTFT: 3628.01 ms
+Frames Per Second: 1.85
+Throughput: 2.31 tokens/sec
+模型回答: The videos show people moving in a classroom setting.
+============================================================
+
+============================================================
+[19/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_zNx9s_XbkUQ.mp4
+影片長度: 14.71 sec
+Average Query Latency: 4256.29 ms
+TTFT: 3629.06 ms
+Frames Per Second: 1.88
+Throughput: 2.11 tokens/sec
+模型回答: People relax and enjoy the sunny waterfront park.
+============================================================
+
+============================================================
+[20/20] 處理影片: ./dataset/falling_off_chair/falling_off_chair_1RZYhr6hly4.mp4
+影片長度: 10.21 sec
+Average Query Latency: 4339.71 ms
+TTFT: 3626.12 ms
+Frames Per Second: 1.84
+Throughput: 2.30 tokens/sec
+模型回答: A young child is lying down on a couch.
+============================================================
+
+==================== Benchmark Summary ====================
+
+Input
+	Model: google/gemma-4-E4B-it
+	Hardware Name  : Tesla V100-SXM2-32GB
+	Video Dir      : ./dataset/falling_off_chair
+	Fixed Frames   : 8
+
+Output
+	Average Query Latency: 4354.26 ms
+	Frames Per Second (FPS): 1.8373
+	Equivalent Real-time Latency (RT Latency): 0.4158
+	Peak VRAM Usage: 20.5574 GB
+	Throughput: 2.3081 tokens/sec
+	Power Consumption: 72.39 W
+ TTFT: 3645.77 ms
+
+
+成功處理影片數: 20 / 20
+平均影片長度: 10.4728 sec
+詳細測試結果已記錄於: gemma-4-E4B-8frames/falling_off_chair.log

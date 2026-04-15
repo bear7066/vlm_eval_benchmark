@@ -98,8 +98,8 @@ Reason: [brief explanation in under 20 words]
 def main():
 	parser = argparse.ArgumentParser(description="Use GPT to judge VLM results from a log file.")
 	parser.add_argument("--video_dir", type=str, default="./dataset/climbing_stair")
-	parser.add_argument("--model_id", type=str, default="google/gemma-4-E4B-it")
-	parser.add_argument("--num_frames", type=int, default=16, help="Number of sampled frames used in benchmark")
+	parser.add_argument("--model_id", type=str, default="google/gemma-3-4b-it")
+	parser.add_argument("--num_frames", type=int, default=8, help="Number of sampled frames used in benchmark")
 	args = parser.parse_args()
 
 	clean_video_dir = os.path.normpath(args.video_dir)
@@ -163,8 +163,8 @@ def main():
 	if valid_count > 0:
 		average_score = total_score / valid_count
 		logging.info(f"總分: {total_score}")
-		logging.info(f"平均分: {average_score:.2f}")
 		logging.info(f"有效樣本數: {valid_count}")
+		logging.info(f"平均分: {average_score:.2f}")
 	else:
 		logging.warning("沒有有效的評分結果")
 

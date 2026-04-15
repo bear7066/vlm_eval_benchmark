@@ -1,0 +1,170 @@
+開始解析紀錄檔: gemma-4-E4B-8frames/climbing_stair.log
+成功解析出 20 筆待評估紀錄。
+
+🚀 開始執行 LLM-as-a-Judge 評估...
+
+[1/20] 正在評估影片: ./dataset/climbing_stair/faceplanting_gfO5b9MkeYw.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Cheerleaders perform stunts and tumbling on the mat.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 0
+Reason: Incorrect; describes cheerleading, not stair climbing. Concise but irrelevant and hallucinatory.
+--------------------------------------------------
+[2/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_WrzUzQP1e5c.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Woman climbs stairs wearing red hoodie and jeans.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 8
+Reason: Identifies stair climbing; concise under 10 words but adds unnecessary clothing details that may be hallucinated.
+--------------------------------------------------
+[3/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_ewlTgVN4hGY.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Circus performer climbs rope ladder in amusement park.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 4
+Reason: Identifies climbing but not stairs; concise yet adds hallucinated circus, rope ladder, and location details.
+--------------------------------------------------
+[4/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_moIKCEYh4SE.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Baby climbs yellow step stool near bed.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 7
+Reason: Correct climbing action and concise, but adds unnecessary specifics and differs from "stair" to "stool."
+--------------------------------------------------
+[5/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_uDlbmzMneuM.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Person climbs inflatable obstacle course outdoors.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 7
+Reason: Correctly identifies climbing and concise, but adds possibly inaccurate context beyond “stair” (inflatable obstacle course, outdoors).
+--------------------------------------------------
+[6/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_YdlXNNcdqTs.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Dog climbs ladder to reach people on blue bench.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 4
+Reason: Captures climbing, but confuses stair with ladder and adds likely hallucinated details.
+--------------------------------------------------
+[7/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder__cY-aJd391Q.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Workers install black metal roofing on a house.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 0
+Reason: Incorrect action; describes roofing installation, not climbing stairs. Unrelated and hallucinatory despite being concise.
+--------------------------------------------------
+[8/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_i1bgAPPPzd4.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Firefighters use ladder truck to fight a large fire.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 0
+Reason: Doesn't match 'climbing stair'; unrelated firefighting scene with hallucinated details.
+--------------------------------------------------
+[9/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_-3DaJMYIc5w.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Child climbs a ladder outdoors in a grassy yard.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 6
+Reason: Identifies climbing, but mislabels stairs as ladder and adds outdoor details.
+--------------------------------------------------
+[10/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_1mcVSFNikzk.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Construction workers on a large building site.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 0
+Reason: Doesn't identify climbing stairs; irrelevant and hallucinates construction scene.
+--------------------------------------------------
+[11/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_SPnNVZ6oB2g.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Child climbs ladder while being held by an adult.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 5
+Reason: Identifies climbing but mislabels stairs as ladder and adds unnecessary adult detail.
+--------------------------------------------------
+[12/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_ZC8IsaZTSpU.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Man lifts child up ladder outdoors.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Incorrect action; mentions ladder and child, not stair climbing. Concise but largely irrelevant and hallucinated.
+--------------------------------------------------
+[13/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_7MZDRoqgvoc.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Person climbs wooden ladder towards treehouse.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 5
+Reason: Captures climbing, but wrong object (ladder vs stairs) and hallucinates treehouse; concise under 10 words.
+--------------------------------------------------
+[14/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_tWvQr4BXCNI.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Man climbs a rope course on a ship deck.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 4
+Reason: Identifies climbing but mislabels stairs as rope course with extra details.
+--------------------------------------------------
+[15/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_1nuWQGGWhKc.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: People are exercising on an inflatable obstacle course.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 2
+Reason: Incorrect core action; concise but hallucinates an inflatable obstacle course unrelated to stair climbing.
+--------------------------------------------------
+[16/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_yDahmCqHpc8.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Crane lifts a large, square object against the sky.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 0
+Reason: Completely wrong action; unrelated crane description; hallucinatory details despite conciseness.
+--------------------------------------------------
+[17/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_nMYx07RtPQI.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Man climbs ladder on inflatable obstacle course.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 4
+Reason: Captures climbing, but misidentifies stairs as ladder and adds unnecessary, likely hallucinated details.
+--------------------------------------------------
+[18/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_AMNHzKDXdDY.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: People climb a large, colorful inflatable ladder structure.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 7
+Reason: Correctly identifies climbing, concise, but mislabels stairs as ladder and adds unnecessary descriptive details.
+--------------------------------------------------
+[19/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_KbU6pFTL8XU.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Toddler climbs a small step stool indoors.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 7
+Reason: Correct climbing action and concise, but adds possibly incorrect specifics (toddler, step stool, indoors).
+--------------------------------------------------
+[20/20] 正在評估影片: ./dataset/climbing_stair/climbing_ladder_qQQZjNlY1Yc.mp4
+Ground Truth: climbing stair
+🤖 VLM 回答內容: Man installs guttering and ladder on roof.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 0
+Reason: Completely wrong action; adds unrelated roof and guttering details. Concise but irrelevant.
+--------------------------------------------------
+
+📊 評估總結
+總分: 71
+有效樣本數: 20
+平均分: 3.55

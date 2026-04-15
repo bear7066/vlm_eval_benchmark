@@ -1,0 +1,170 @@
+開始解析紀錄檔: gemma-3-4b-8frames/face_planting.log
+成功解析出 20 筆待評估紀錄。
+
+🚀 開始執行 LLM-as-a-Judge 評估...
+
+[1/20] 正在評估影片: ./dataset/face_planting/faceplanting_kIhT0fUUPK0.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Waterskiing on a homemade, unstable floating board.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 0
+Reason: Does not identify face planting; hallucinates waterskiing and extra details.
+--------------------------------------------------
+[2/20] 正在評估影片: ./dataset/face_planting/faceplanting_wF-7CEJZ4w8.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Person performing impressive gymnastics flips in a gym.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Misidentifies action; adds gym setting and flips; concise but irrelevant to face planting.
+--------------------------------------------------
+[3/20] 正在評估影片: ./dataset/face_planting/faceplanting_11YmgupLXYE.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: A person performs a complex acrobatic flip.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 2
+Reason: Misidentifies face-plant as acrobatic flip; concise but incorrect and hallucinatory.
+--------------------------------------------------
+[4/20] 正在評估影片: ./dataset/face_planting/faceplanting_T4wf6w_HqUs.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Person falls and lies injured in the snow.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 6
+Reason: Captures falling but misses face-first aspect; adds injury and snow details; concise.
+--------------------------------------------------
+[5/20] 正在評估影片: ./dataset/face_planting/faceplanting_Kj725DEceik.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: A young man is playfully swinging in a doorway.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Incorrect action; describes swinging, not face planting. Concise but irrelevant and includes unrelated details.
+--------------------------------------------------
+[6/20] 正在評估影片: ./dataset/face_planting/faceplanting_QbyBACtRcz8.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Two babies playfully interacting on a rumpled bed.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Fails to mention face planting; adds unrelated babies/bed, though concise.
+--------------------------------------------------
+[7/20] 正在評估影片: ./dataset/face_planting/faceplanting_DAeLsJBXaAA.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Kids attempt to jump their bikes over ramps.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Incorrect action; mentions bikes and ramps, unrelated to face planting despite brevity.
+--------------------------------------------------
+[8/20] 正在評估影片: ./dataset/face_planting/faceplanting_e7AnmQTKegM.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Snowboarder enjoying a snowy, icy mountain run.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 2
+Reason: Misses face-plant action; describes generic snowboarding. Concise but adds subjective, extraneous details.
+--------------------------------------------------
+[9/20] 正在評估影片: ./dataset/face_planting/faceplanting_Us1OJs0UxE0.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Child slides down stairs in a laundry basket.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 2
+Reason: Fails to identify face planting; concise but unrelated, with hallucinated details.
+--------------------------------------------------
+[10/20] 正在評估影片: ./dataset/face_planting/faceplanting_wjmyNaK6TRc.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Boat wakes up a waterskier on a lake.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Does not mention face planting; irrelevant waterski narrative with hallucinated “wakes up” detail despite brevity.
+--------------------------------------------------
+[11/20] 正在評估影片: ./dataset/face_planting/faceplanting_SBWpjWPvFho.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Students appear to be restraining a classmate.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Misses core action; adds unrelated “students restraining” detail. Concise but irrelevant to face planting.
+--------------------------------------------------
+[12/20] 正在評估影片: ./dataset/face_planting/faceplanting_mk9eyW1bzAU.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Beachgoers playfully wrestle in the crashing waves.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Misses 'face planting,' describes wrestling at beach; concise but irrelevant and includes unrelated scene details.
+--------------------------------------------------
+[13/20] 正在評估影片: ./dataset/face_planting/faceplanting_MaYeShN2k8I.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Boy falls awkwardly after attempting a stunt.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 6
+Reason: Captures a fall but not faceplant; concise; includes unnecessary 'boy' and 'stunt' details.
+--------------------------------------------------
+[14/20] 正在評估影片: ./dataset/face_planting/faceplanting_M7fnZthnKv0.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Person skateboarding falls repeatedly in a parking lot.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 4
+Reason: Misses face-plant; generic falling; "repeatedly" and added context may be inaccurate.
+--------------------------------------------------
+[15/20] 正在評估影片: ./dataset/face_planting/faceplanting_phVppFzTgkA.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Person falls repeatedly after attempting a dangerous stunt.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 4
+Reason: Misses "faceplant"; adds "repeatedly" and "dangerous stunt". Concise but not specific.
+--------------------------------------------------
+[16/20] 正在評估影片: ./dataset/face_planting/faceplanting_X7ztDnayQAo.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: People are playfully, and somewhat aggressively, jumping on a child.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 0
+Reason: Misses face-plant action, overly long, adds unrelated people jumping on a child.
+--------------------------------------------------
+[17/20] 正在評估影片: ./dataset/face_planting/faceplanting_piCD8qYAMVI.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Person sliding and falling on a snowy field.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 6
+Reason: Captures falling but misses face-first detail; concise; no clear hallucinations.
+--------------------------------------------------
+[18/20] 正在評估影片: ./dataset/face_planting/faceplanting_7IWBLXPrxoQ.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: People skiing or sledding down a snowy hillside.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 1
+Reason: Misses face-plant action; guesses skiing/sledding; concise but inaccurate.
+--------------------------------------------------
+[19/20] 正在評估影片: ./dataset/face_planting/faceplanting_D9x20LIhb9Y.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Child falls off bike on a rocky trail.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 4
+Reason: Doesn’t capture face-plant; adds possibly hallucinated context (child, bike, trail); concise.
+--------------------------------------------------
+[20/20] 正在評估影片: ./dataset/face_planting/faceplanting_-dLXIIjWS-c.mp4
+Ground Truth: face planting
+🤖 VLM 回答內容: Child sledding down a snow-filled, carved path.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+📝 Judge 評語:
+Score: 2
+Reason: Misidentifies action; describes sledding instead of face planting. Concise but includes unnecessary detail.
+--------------------------------------------------
+
+📊 評估總結
+總分: 46
+有效樣本數: 20
+平均分: 2.30
