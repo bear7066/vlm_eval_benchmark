@@ -373,11 +373,11 @@ def main():
 		if avg_power is not None:
 			logging.info(f"	Power Consumption: {avg_power:.2f} W")
 		else:
-			logging.info(f"Power Consumption: N/A")
+			logging.info(f"	Power Consumption: N/A")
 		if avg_ttft_ms is not None:
-			logging.info(f" TTFT: {avg_ttft_ms:.2f} ms")
+			logging.info(f"	TTFT: {avg_ttft_ms:.2f} ms")
 		else:
-			logging.info(f" TTFT: N/A")
+			logging.info(f"	TTFT: N/A")
 
 		logging.info("\n")
 		logging.info(f"成功處理影片數: {successful_runs} / {sample_size}")

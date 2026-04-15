@@ -1,0 +1,231 @@
+載入模型與處理器: bear7011/gemma3-4b-kinetic3K_FT ... 
+
+
+從 ./dataset/falling_off_bike 尋找，共找到 45 支影片。
+
+開始測試，隨機抽取 20 支影片進行推論...
+
+Hardware Name: Tesla V100-SXM2-32GB
+Fixed Frames : 8
+
+============================================================
+[1/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_WGHj7LBp2t8.mp4
+影片長度: 12.17 sec
+Average Query Latency: 8733.55 ms
+TTFT: 8307.90 ms
+Frames Per Second: 0.92
+Throughput: 0.92 tokens/sec
+模型回答: A person is skateboarding in a park.
+============================================================
+
+============================================================
+[2/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_-c0s5FYBWTQ.mp4
+影片長度: 10.00 sec
+Average Query Latency: 8560.46 ms
+TTFT: 8012.08 ms
+Frames Per Second: 0.93
+Throughput: 1.17 tokens/sec
+模型回答: A child is riding a bicycle down the street.
+============================================================
+
+============================================================
+[3/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_KZZ2ySZ2oC8.mp4
+影片長度: 12.87 sec
+Average Query Latency: 8563.31 ms
+TTFT: 8015.84 ms
+Frames Per Second: 0.93
+Throughput: 1.17 tokens/sec
+模型回答: Man sitting on the ground next to a bike.
+============================================================
+
+============================================================
+[4/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_wWEnYiHzorg.mp4
+影片長度: 5.05 sec
+Average Query Latency: 8633.54 ms
+TTFT: 8020.95 ms
+Frames Per Second: 0.93
+Throughput: 1.27 tokens/sec
+模型回答: A boy is riding his bike down a narrow alley.
+============================================================
+
+============================================================
+[5/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_Tl1a49pTtak.mp4
+影片長度: 10.74 sec
+Average Query Latency: 8579.12 ms
+TTFT: 8022.04 ms
+Frames Per Second: 0.93
+Throughput: 1.17 tokens/sec
+模型回答: A cyclist fell and lay injured on the pavement.
+============================================================
+
+============================================================
+[6/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_Zt4pZsUXLwU.mp4
+影片長度: 15.13 sec
+Average Query Latency: 8571.89 ms
+TTFT: 8029.02 ms
+Frames Per Second: 0.93
+Throughput: 1.17 tokens/sec
+模型回答: A person is riding a bicycle down a staircase.
+============================================================
+
+============================================================
+[7/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_QXlLnjld17U.mp4
+影片長度: 13.83 sec
+Average Query Latency: 8461.50 ms
+TTFT: 8038.17 ms
+Frames Per Second: 0.95
+Throughput: 0.95 tokens/sec
+模型回答: Boy falls off his bike on pavement.
+============================================================
+
+============================================================
+[8/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_G_w2dLWeQfY.mp4
+影片長度: 12.05 sec
+Average Query Latency: 8591.34 ms
+TTFT: 8036.34 ms
+Frames Per Second: 0.93
+Throughput: 1.16 tokens/sec
+模型回答: A person falls off their bicycle on the grass.
+============================================================
+
+============================================================
+[9/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_4y0ujkNbul8.mp4
+影片長度: 11.03 sec
+Average Query Latency: 8649.63 ms
+TTFT: 8032.18 ms
+Frames Per Second: 0.92
+Throughput: 1.27 tokens/sec
+模型回答: A child falls off a scooter after riding a bike.
+============================================================
+
+============================================================
+[10/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_qKScacoGAwE.mp4
+影片長度: 5.03 sec
+Average Query Latency: 8565.88 ms
+TTFT: 8023.51 ms
+Frames Per Second: 0.93
+Throughput: 1.17 tokens/sec
+模型回答: A man and a girl are riding bicycles together.
+============================================================
+
+============================================================
+[11/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_ggi3XwH4vPo.mp4
+影片長度: 2.03 sec
+Average Query Latency: 8647.54 ms
+TTFT: 8033.68 ms
+Frames Per Second: 0.93
+Throughput: 1.27 tokens/sec
+模型回答: A man is riding a bicycle on a muddy log.
+============================================================
+
+============================================================
+[12/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_p8Jt6ROutMo.mp4
+影片長度: 5.63 sec
+Average Query Latency: 8647.37 ms
+TTFT: 8028.26 ms
+Frames Per Second: 0.93
+Throughput: 1.27 tokens/sec
+模型回答: A person is riding a unicycle through the woods.
+============================================================
+
+============================================================
+[13/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_0US_tIy2xAg.mp4
+影片長度: 10.03 sec
+Average Query Latency: 8632.94 ms
+TTFT: 8028.93 ms
+Frames Per Second: 0.93
+Throughput: 1.27 tokens/sec
+模型回答: A boy rides a bike in front of a house.
+============================================================
+
+============================================================
+[14/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_QcutxgXwENE.mp4
+影片長度: 13.63 sec
+Average Query Latency: 8634.87 ms
+TTFT: 8029.97 ms
+Frames Per Second: 0.93
+Throughput: 1.27 tokens/sec
+模型回答: A person is falling off a bicycle in a field.
+============================================================
+
+============================================================
+[15/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_k73Go_-hE-I.mp4
+影片長度: 9.58 sec
+Average Query Latency: 8572.93 ms
+TTFT: 8028.44 ms
+Frames Per Second: 0.93
+Throughput: 1.17 tokens/sec
+模型回答: A person is riding a bicycle on the ramp.
+============================================================
+
+============================================================
+[16/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_W8fpOGSD_7M.mp4
+影片長度: 10.48 sec
+Average Query Latency: 8586.17 ms
+TTFT: 8040.07 ms
+Frames Per Second: 0.93
+Throughput: 1.16 tokens/sec
+模型回答: A person falls off a bicycle in a park.
+============================================================
+
+============================================================
+[17/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_USCaphYBPOg.mp4
+影片長度: 10.06 sec
+Average Query Latency: 8573.44 ms
+TTFT: 8037.10 ms
+Frames Per Second: 0.93
+Throughput: 1.17 tokens/sec
+模型回答: A boy is riding a bicycle on the street.
+============================================================
+
+============================================================
+[18/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_u386WjrxTuM.mp4
+影片長度: 10.04 sec
+Average Query Latency: 8627.94 ms
+TTFT: 8024.34 ms
+Frames Per Second: 0.93
+Throughput: 1.27 tokens/sec
+模型回答: A boy jumps into a pool from a small hill.
+============================================================
+
+============================================================
+[19/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_7qZvo1A3MRQ.mp4
+影片長度: 6.52 sec
+Average Query Latency: 8578.91 ms
+TTFT: 8024.16 ms
+Frames Per Second: 0.93
+Throughput: 1.17 tokens/sec
+模型回答: A man is riding a bicycle in the yard.
+============================================================
+
+============================================================
+[20/20] 處理影片: ./dataset/falling_off_bike/falling_off_bike_0uf2P7BX1vs.mp4
+影片長度: 8.70 sec
+Average Query Latency: 8580.13 ms
+TTFT: 8032.38 ms
+Frames Per Second: 0.93
+Throughput: 1.17 tokens/sec
+模型回答: A man is riding a bike on a trampoline.
+============================================================
+
+==================== Benchmark Summary ====================
+
+Input
+	Model: bear7011/gemma3-4b-kinetic3K_FT
+	Hardware Name  : Tesla V100-SXM2-32GB
+	Video Dir      : ./dataset/falling_off_bike
+	Fixed Frames   : 8
+
+Output
+	Average Query Latency: 8599.62 ms
+	Frames Per Second (FPS): 0.9303
+	Equivalent Real-time Latency (RT Latency): 0.8837
+	Peak VRAM Usage: 27.0599 GB
+	Throughput: 1.1803 tokens/sec
+	Power Consumption: 73.47 W
+ TTFT: 8042.27 ms
+
+
+成功處理影片數: 20 / 20
+平均影片長度: 9.7312 sec
+詳細測試結果已記錄於: gemma3-4b-kinetic3K_FT-8frames/falling_off_bike.log
