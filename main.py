@@ -113,7 +113,7 @@ def main():
 					 help="Hugging Face model ID")
 	parser.add_argument("--num_frames", type=int, default=8,
 					 help="Fixed number of sampled frames per video")
-	parser.add_argument("--sample_size", type=int, default=20,
+	parser.add_argument("--sample_size", type=int, default=1000,
 					 help="Number of videos to randomly sample")
 	args = parser.parse_args()
 
