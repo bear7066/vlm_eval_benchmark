@@ -10608,3 +10608,5 @@ Output
 成功處理影片數: 513 / 514
 平均影片長度: 11.8232 sec
 詳細測試結果已記錄於: gemma-3-4b-8frames/climbing_stair.log
+載入模型與處理器: google/gemma-3-4b-it ... 
+
