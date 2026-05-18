@@ -8,9 +8,10 @@ video_dirs = [
 ]
 
 model_id = [
-	"google/gemma-3-4b-it",
+	"google/gemma-4-E2B-it",
+	"bear7011/gemma4-e2b-webvid4K_FT"
 	"google/gemma-4-E4B-it",
-	"bear7011/gemma3-4b-kinetic3K_FT"
+	"bear7011/gemma4-e4b-webvid4K_FT"
 ]
 
 for v in video_dirs:
