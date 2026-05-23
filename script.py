@@ -18,5 +18,5 @@ for v in video_dirs:
     video_path = f"./dataset/{v}"
     
     for model in model_id:
-    	os.system(f"python3 main.py --video_dir={video_path} --model_id={model}")
+    	os.system(f"CUDA_VISIBLE_DEVICES=0,1,2,3 python3 main.py --num_frames=16 --video_dir={video_path} --model_id={model}")
     	os.system(f"python3 llm_judge.py --video_dir={video_path} --model_id={model}")
