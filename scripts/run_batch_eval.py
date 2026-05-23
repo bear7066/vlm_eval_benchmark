@@ -21,7 +21,7 @@ def main():
         "bear7011/gemma4-e4b-webvid4K_FT",
         
         "--dataset_root", "./dataset",
-        "--sample_fps", "5.0",           
+        "--num_frames", "8",
         "--judge_model", "gpt-4o",
     ]
 

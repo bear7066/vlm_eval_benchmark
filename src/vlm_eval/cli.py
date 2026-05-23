@@ -10,7 +10,7 @@ def benchmark_main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Run VLM inference benchmark on videos.")
     parser.add_argument("--video_dir", type=Path, default=Path("./dataset/climbing_stair"))
     parser.add_argument("--model_id", type=str, default="google/gemma-3-4b-it")
-    parser.add_argument("--sample_fps", type=float, default=2.0)
+    parser.add_argument("--num_frames", type=int, default=8)
     parser.add_argument("--sample_size", type=int, default=1000)
     parser.add_argument("--output_root", type=Path, default=Path("runs"))
     parser.add_argument("--run_id", type=str, default=None)
@@ -22,7 +22,7 @@ def benchmark_main(argv: list[str] | None = None) -> int:
     config = BenchmarkConfig(
         video_dir=args.video_dir,
         model_id=args.model_id,
-        sample_fps=args.sample_fps,
+        num_frames=args.num_frames,
         sample_size=args.sample_size,
         output_root=args.output_root,
         run_id=args.run_id,
@@ -45,7 +45,7 @@ def judge_main(argv: list[str] | None = None) -> int:
     parser.add_argument("--video_dir", type=Path, default=Path("./dataset/climbing_stair"))
     parser.add_argument("--model_id", type=str, default="google/gemma-3-4b-it")
     parser.add_argument("--sample_fps", type=float, default=None)
-    parser.add_argument("--num_frames", type=int, default=None, help="Deprecated; kept for old commands.")
+    parser.add_argument("--num_frames", type=int, default=None, help="Find runs or legacy logs with this fixed frame count.")
     parser.add_argument("--judge_model", type=str, default="gpt-4o")
     parser.add_argument("--backend", choices=["openai", "medusa"], default=None)
     parser.add_argument(
@@ -79,7 +79,7 @@ def batch_main(argv: list[str] | None = None) -> int:
     parser.add_argument("--video_dirs", nargs="+", default=["falling_off_chair"])
     parser.add_argument("--model_ids", nargs="+", default=["google/gemma-4-E4B-it"])
     parser.add_argument("--dataset_root", type=Path, default=Path("./dataset"))
-    parser.add_argument("--sample_fps", type=float, default=5.0)
+    parser.add_argument("--num_frames", type=int, default=8)
     parser.add_argument("--sample_size", type=int, default=1000)
     parser.add_argument("--output_root", type=Path, default=Path("runs"))
     parser.add_argument("--judge_model", type=str, default="gpt-4o")
@@ -95,7 +95,7 @@ def batch_main(argv: list[str] | None = None) -> int:
             benchmark_config = BenchmarkConfig(
                 video_dir=video_dir,
                 model_id=model_id,
-                sample_fps=args.sample_fps,
+                num_frames=args.num_frames,
                 sample_size=args.sample_size,
                 output_root=args.output_root,
             )

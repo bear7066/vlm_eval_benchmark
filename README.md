@@ -61,7 +61,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 uv run python scripts/run_batch_eval.py
 uv run python scripts/run_benchmark.py \
   --video_dir ./dataset/climbing_stair \
   --model_id google/gemma-4-E4B-it \
-  --sample_fps 5.0
+  --num_frames 8
 ```
 
 ### 2. 執行評分 (Judge)

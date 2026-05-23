@@ -13,7 +13,7 @@ DEFAULT_PROMPT = (
 class BenchmarkConfig:
     video_dir: Path
     model_id: str
-    sample_fps: float = 2.0
+    num_frames: int = 8
     sample_size: int = 1000
     output_root: Path = Path("runs")
     run_id: str | None = None

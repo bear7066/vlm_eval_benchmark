@@ -53,6 +53,7 @@ def resolve_prediction_source(config: JudgeConfig) -> tuple[Path | None, Path | 
             model_id=config.model_id,
             video_dir=Path(config.video_dir),
             sample_fps=config.sample_fps,
+            num_frames=config.num_frames,
         )
         if run_dir is not None:
             return run_dir / "predictions.jsonl", run_dir, False

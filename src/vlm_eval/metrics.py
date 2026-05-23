@@ -33,7 +33,7 @@ def summarize_results(
     hardware_name: str,
     model_id: str,
     video_dir: str,
-    sample_fps: float,
+    num_frames: int,
     peak_vram_gb: float | None,
 ) -> dict[str, Any]:
     successful = [result for result in results if result.status == "success"]
@@ -69,7 +69,7 @@ def summarize_results(
             "model": model_id,
             "hardware_name": hardware_name,
             "video_dir": video_dir,
-            "sample_fps": sample_fps,
+            "num_frames": num_frames,
             "sample_size": sample_size,
         },
         "output": {

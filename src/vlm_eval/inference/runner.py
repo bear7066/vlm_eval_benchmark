@@ -49,7 +49,7 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
 
     video_dir = Path(config.video_dir)
     ground_truth_name = label_from_video_dir(video_dir)
-    run_id = slugify(config.run_id) if config.run_id else build_run_id(config.model_id, video_dir, config.sample_fps)
+    run_id = slugify(config.run_id) if config.run_id else build_run_id(config.model_id, video_dir, config.num_frames)
     try:
         run_dir = ensure_run_dir(Path(config.output_root), run_id)
     except FileExistsError:
@@ -97,7 +97,7 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
 
     logging.info("Starting benchmark with %s sampled videos.", sample_size)
     logging.info("Hardware Name: %s", hardware_name)
-    logging.info("Sample FPS   : %s", f"{config.sample_fps:g}")
+    logging.info("Fixed Frames : %s", config.num_frames)
 
     results: list[VideoResult] = []
 
@@ -108,9 +108,8 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
 
         frames, video_duration_sec, total_video_frames, original_fps = sample_frames(
             video_path,
-            sample_fps=config.sample_fps,
+            num_frames=config.num_frames,
         )
-
         if frames is None:
             result = VideoResult(
                 video=str(video_path),
@@ -186,7 +185,7 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
         hardware_name=hardware_name,
         model_id=config.model_id,
         video_dir=str(video_dir),
-        sample_fps=config.sample_fps,
+        num_frames=config.num_frames,
         peak_vram_gb=get_peak_vram_gb(),
     )
     _write_json(run_dir / "summary.json", summary)
@@ -198,7 +197,7 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
     logging.info("\tModel: %s", config.model_id)
     logging.info("\tHardware Name  : %s", hardware_name)
     logging.info("\tVideo Dir      : %s", video_dir)
-    logging.info("\tSample FPS     : %s", f"{config.sample_fps:g}")
+    logging.info("\tFixed Frames   : %s", config.num_frames)
 
     output = summary["output"]
     logging.info("")
