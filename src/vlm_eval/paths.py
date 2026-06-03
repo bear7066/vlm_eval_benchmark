@@ -12,6 +12,7 @@ def model_name_from_id(model_id: str) -> str:
 
 
 def label_from_video_dir(video_dir: Path) -> str:
+    """Legacy helper — still used by judge/parser.py for old log files."""
     name = Path(video_dir).resolve().name
     return name if name and name != "." else "default_ground_truth"
 
@@ -31,14 +32,13 @@ def slugify(value: str) -> str:
 
 def build_run_id(
     model_id: str,
-    video_dir: Path,
+    label: str,
     num_frames: int,
     now: datetime | None = None,
 ) -> str:
     timestamp = (now or datetime.now()).strftime("%Y%m%d-%H%M%S")
     model_name = slugify(model_name_from_id(model_id))
-    label = slugify(label_from_video_dir(video_dir))
-    return f"{model_name}_{num_frames}frames_{label}_{timestamp}"
+    return f"{model_name}_{num_frames}frames_{slugify(label)}_{timestamp}"
 
 
 def ensure_run_dir(output_root: Path, run_id: str) -> Path:
@@ -55,14 +55,12 @@ def read_json(path: Path) -> dict[str, Any]:
 def find_latest_run(
     output_root: Path,
     model_id: str | None = None,
-    video_dir: Path | None = None,
-    sample_fps: float | None = None,
+    dataset: str | None = None,
     num_frames: int | None = None,
 ) -> Path | None:
     if not output_root.exists():
         return None
 
-    expected_label = label_from_video_dir(video_dir) if video_dir is not None else None
     candidates: list[Path] = []
 
     for config_path in output_root.glob("*/config.json"):
@@ -73,9 +71,7 @@ def find_latest_run(
 
         if model_id is not None and config.get("model_id") != model_id:
             continue
-        if expected_label is not None and config.get("ground_truth_name") != expected_label:
-            continue
-        if sample_fps is not None and float(config.get("sample_fps", -1)) != sample_fps:
+        if dataset is not None and config.get("dataset") != dataset:
             continue
         if num_frames is not None and int(config.get("num_frames", -1)) != num_frames:
             continue

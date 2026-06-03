@@ -15,9 +15,13 @@ dependencies = [
   "Pillow>=9.5",
   "openai>=1.0.0",
   "python-dotenv>=1.0.0",
+  "datasets>=2.14",
+  "huggingface_hub>=0.20",
+  "pyarrow>=14.0",
   "torch==2.5.1",
   "torchvision==0.20.1",
   "torchaudio==2.5.1",
+  "dotenv>=0.9.9",
 ]
 
 [project.scripts]

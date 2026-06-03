@@ -3,17 +3,17 @@ from __future__ import annotations
 import json
 import logging
 import os
-import random
 from dataclasses import asdict
 from pathlib import Path
 
 from vlm_eval.config import BenchmarkConfig
 from vlm_eval.hardware import get_hardware_name, get_peak_vram_gb, reset_peak_memory_stats
+from vlm_eval.hf_dataset import load_video_dataset
 from vlm_eval.inference.gemma import HuggingFaceVLM
 from vlm_eval.logging_utils import configure_logging, quiet_third_party_loggers
 from vlm_eval.metrics import VideoResult, summarize_results
-from vlm_eval.paths import build_run_id, ensure_run_dir, label_from_video_dir, slugify
-from vlm_eval.video import find_videos, sample_frames
+from vlm_eval.paths import build_run_id, ensure_run_dir, slugify
+from vlm_eval.video import sample_frames_from_bytes
 
 
 def _json_default(value):
@@ -47,9 +47,8 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
     os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
     quiet_third_party_loggers()
 
-    video_dir = Path(config.video_dir)
-    ground_truth_name = label_from_video_dir(video_dir)
-    run_id = slugify(config.run_id) if config.run_id else build_run_id(config.model_id, video_dir, config.num_frames)
+    label = config.dataset
+    run_id = slugify(config.run_id) if config.run_id else build_run_id(config.model_id, label, config.num_frames)
     try:
         run_dir = ensure_run_dir(Path(config.output_root), run_id)
     except FileExistsError:
@@ -59,10 +58,8 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
     configure_logging(run_dir / "benchmark.log", mode="a")
 
     config_data = asdict(config)
-    config_data["video_dir"] = str(video_dir)
     config_data["output_root"] = str(config.output_root)
     config_data["run_id"] = run_id
-    config_data["ground_truth_name"] = ground_truth_name
     _write_json(run_dir / "config.json", config_data)
 
     predictions_path = run_dir / "predictions.jsonl"
@@ -70,16 +67,21 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
         predictions_path.unlink()
     predictions_path.touch()
 
-    video_paths = find_videos(video_dir)
     logging.info("Run directory: %s", run_dir)
-    logging.info("")
-    logging.info("Found %s videos under %s", len(video_paths), video_dir)
-    if not video_paths:
-        logging.error("No video files found.")
-        return run_dir
+    logging.info("Loading dataset: %s / %s", config.dataset_repo, label)
+
+    try:
+        ds = load_video_dataset(label, config.dataset_repo)
+    except Exception as exc:
+        logging.error("Failed to load dataset: %s", exc)
+        return None
+
+    # Shuffle for reproducibility then cap at sample_size
+    if config.seed is not None:
+        ds = ds.shuffle(seed=config.seed, buffer_size=500)
+    ds = ds.take(config.sample_size)
 
     logging.info("Loading model and processor: %s", config.model_id)
-
     hf_token = os.environ.get("HF_TOKEN")
     hardware_name = get_hardware_name()
 
@@ -91,31 +93,30 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
 
     reset_peak_memory_stats()
 
-    sample_size = min(config.sample_size, len(video_paths))
-    rng = random.Random(config.seed)
-    sampled_videos = rng.sample(video_paths, sample_size)
-
-    logging.info("Starting benchmark with %s sampled videos.", sample_size)
-    logging.info("Hardware Name: %s", hardware_name)
-    logging.info("Fixed Frames : %s", config.num_frames)
+    logging.info("Starting benchmark.")
+    logging.info("Hardware Name : %s", hardware_name)
+    logging.info("Fixed Frames  : %s", config.num_frames)
 
     results: list[VideoResult] = []
+    index = 0
 
-    for index, video_path in enumerate(sampled_videos, start=1):
+    for example in ds:
+        index += 1
+        video_id = example.get("video_id") or "unknown"
         logging.info("")
         logging.info("=" * 60)
-        logging.info("[%s/%s] Processing video: %s", index, sample_size, video_path)
+        logging.info("[%s] Processing video: %s", index, video_id)
 
-        frames, video_duration_sec, total_video_frames, original_fps = sample_frames(
-            video_path,
+        frames, video_duration_sec, total_video_frames, original_fps = sample_frames_from_bytes(
+            example["video_bytes"],
             num_frames=config.num_frames,
         )
         if frames is None:
             result = VideoResult(
-                video=str(video_path),
-                label=ground_truth_name,
+                video=video_id,
+                label=label,
                 status="error",
-                error="Could not sample frames",
+                error="Could not decode video bytes",
             )
             results.append(result)
             _append_jsonl(predictions_path, result.to_dict())
@@ -132,8 +133,8 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
             sampled_fps = len(frames) / elapsed_sec if elapsed_sec > 0 else 0.0
 
             result = VideoResult(
-                video=str(video_path),
-                label=ground_truth_name,
+                video=video_id,
+                label=label,
                 status="success",
                 response=generated["response"],
                 query_latency_sec=elapsed_sec,
@@ -166,8 +167,8 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
         except Exception as exc:
             logging.error("Inference failed: %s", exc)
             result = VideoResult(
-                video=str(video_path),
-                label=ground_truth_name,
+                video=video_id,
+                label=label,
                 status="error",
                 error=str(exc),
                 video_duration_sec=video_duration_sec,
@@ -179,12 +180,13 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
         results.append(result)
         _append_jsonl(predictions_path, result.to_dict())
 
+    sample_size = index
     summary = summarize_results(
         results=results,
         sample_size=sample_size,
         hardware_name=hardware_name,
         model_id=config.model_id,
-        video_dir=str(video_dir),
+        dataset=label,
         num_frames=config.num_frames,
         peak_vram_gb=get_peak_vram_gb(),
     )
@@ -194,9 +196,9 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
     logging.info("==================== Benchmark Summary ====================")
     logging.info("")
     logging.info("Input")
-    logging.info("\tModel: %s", config.model_id)
-    logging.info("\tHardware Name  : %s", hardware_name)
-    logging.info("\tVideo Dir      : %s", video_dir)
+    logging.info("\tModel          : %s", config.model_id)
+    logging.info("\tHardware       : %s", hardware_name)
+    logging.info("\tDataset        : %s / %s", config.dataset_repo, label)
     logging.info("\tFixed Frames   : %s", config.num_frames)
 
     output = summary["output"]

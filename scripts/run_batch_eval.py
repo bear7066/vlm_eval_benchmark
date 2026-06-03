@@ -6,28 +6,26 @@ from vlm_eval.cli import batch_main
 
 
 def main():
-    
     args = [
-        "--video_dirs", 
-        "climbing_ladder", 
-        "face_planting", 
-        "falling_off_bike", 
+        "--datasets",
+        "climbing_ladder",
+        "face_planting",
+        "falling_off_bike",
         "falling_off_chair",
-        
-        "--model_ids", 
-        "google/gemma-4-E2B-it", 
-        "bear7011/gemma4-e2b-webvid4K_FT", 
-        "google/gemma-4-E4B-it", 
+
+        "--model_ids",
+        "google/gemma-4-E2B-it",
+        "bear7011/gemma4-e2b-webvid4K_FT",
+        "google/gemma-4-E4B-it",
         "bear7011/gemma4-e4b-webvid4K_FT",
-        
-        "--dataset_root", "./dataset",
+
         "--num_frames", "8",
         "--judge_model", "gpt-4o",
     ]
 
     print("=== 開始批次測試任務 ===")
-    print(f"影片目錄: {args[args.index('--video_dirs')+1 : args.index('--model_ids')]}")
-    print(f"測試模型: {args[args.index('--model_ids')+1 : args.index('--dataset_root')]}")
+    print(f"影片目錄: {args[args.index('--datasets')+1 : args.index('--model_ids')]}")
+    print(f"測試模型: {args[args.index('--model_ids')+1 : args.index('--num_frames')]}")
     print("=" * 25)
 
     try:

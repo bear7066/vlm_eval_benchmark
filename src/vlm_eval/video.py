@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import io
 import logging
 from pathlib import Path
 from typing import Any
@@ -24,6 +25,54 @@ def get_video_duration(video_reader: Any) -> float | None:
     except Exception:
         pass
     return None
+
+
+def sample_frames_from_bytes(video_bytes: bytes, num_frames: int = 8):
+    """Same as sample_frames() but reads from raw MP4 bytes instead of a file path.
+
+    Used when videos are streamed from HuggingFace Hub without writing to disk.
+    Returns (pil_frames, video_duration_sec, total_video_frames, original_fps)
+    or (None, None, None, None) on error.
+    """
+    if not video_bytes:
+        logging.error("Skipping video: received empty or null bytes (corrupt Parquet row).")
+        return None, None, None, None
+
+    import decord
+    import numpy as np
+    from PIL import Image
+
+    try:
+        video_reader = decord.VideoReader(io.BytesIO(video_bytes), ctx=decord.cpu(0))
+    except Exception as exc:
+        logging.error("Could not decode video bytes: %s", exc)
+        return None, None, None, None
+
+    total_frames = len(video_reader)
+    if total_frames == 0:
+        return None, None, None, None
+
+    try:
+        original_fps = video_reader.get_avg_fps()
+    except Exception:
+        original_fps = None
+
+    video_duration_sec = get_video_duration(video_reader)
+
+    if num_frames <= 0:
+        logging.error("num_frames must be > 0, got %s", num_frames)
+        return None, None, None, None
+
+    indices = np.linspace(0, total_frames - 1, num_frames, dtype=int)
+    indices = np.clip(indices, 0, total_frames - 1)
+    indices = np.unique(indices)
+
+    if len(indices) == 0:
+        indices = np.array([0], dtype=int)
+
+    frames = video_reader.get_batch(indices).asnumpy()
+    pil_frames = [Image.fromarray(frame) for frame in frames]
+    return pil_frames, video_duration_sec, total_frames, original_fps
 
 
 def sample_frames(video_path: Path, num_frames: int = 8):
