@@ -5,13 +5,13 @@ from pathlib import Path
 
 
 DEFAULT_PROMPT = (
-    "Describe the main action briefly in 2~6 words."                                                               
+    "Describe the main action briefly in 2~6 words."
 )
 
 
 @dataclass(frozen=True)
 class BenchmarkConfig:
-    video_dir: Path
+    dataset: str
     model_id: str
     num_frames: int = 8
     sample_size: int = 1000
@@ -30,7 +30,7 @@ class JudgeConfig:
     predictions_path: Path | None = None
     legacy_log_path: Path | None = None
     output_root: Path = Path("runs")
-    video_dir: Path | None = None
+    dataset: str | None = None
     model_id: str | None = None
     sample_fps: float | None = None
     num_frames: int | None = None

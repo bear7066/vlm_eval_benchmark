@@ -8,7 +8,8 @@ from vlm_eval.config import BenchmarkConfig, JudgeConfig
 
 def benchmark_main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Run VLM inference benchmark on videos.")
-    parser.add_argument("--video_dir", type=Path, default=Path("./dataset/climbing_stair"))
+    parser.add_argument("--dataset", type=str, default="climbing_ladder",
+                        help="HuggingFace dataset config name (e.g. climbing_ladder, face_planting, default)")
     parser.add_argument("--model_id", type=str, default="google/gemma-3-4b-it")
     parser.add_argument("--num_frames", type=int, default=8)
     parser.add_argument("--sample_size", type=int, default=1000)
@@ -20,7 +21,7 @@ def benchmark_main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     config = BenchmarkConfig(
-        video_dir=args.video_dir,
+        dataset=args.dataset,
         model_id=args.model_id,
         num_frames=args.num_frames,
         sample_size=args.sample_size,
@@ -42,7 +43,8 @@ def judge_main(argv: list[str] | None = None) -> int:
     parser.add_argument("--predictions", type=Path, default=None)
     parser.add_argument("--legacy_log", type=Path, default=None)
     parser.add_argument("--output_root", type=Path, default=Path("runs"))
-    parser.add_argument("--video_dir", type=Path, default=Path("./dataset/climbing_stair"))
+    parser.add_argument("--dataset", type=str, default=None,
+                        help="HuggingFace dataset config name used during benchmarking (for run discovery)")
     parser.add_argument("--model_id", type=str, default="google/gemma-3-4b-it")
     parser.add_argument("--sample_fps", type=float, default=None)
     parser.add_argument("--num_frames", type=int, default=None, help="Find runs or legacy logs with this fixed frame count.")
@@ -62,7 +64,7 @@ def judge_main(argv: list[str] | None = None) -> int:
         predictions_path=args.predictions,
         legacy_log_path=args.legacy_log,
         output_root=args.output_root,
-        video_dir=args.video_dir,
+        dataset=args.dataset,
         model_id=args.model_id,
         sample_fps=args.sample_fps,
         num_frames=args.num_frames,
@@ -76,9 +78,9 @@ def judge_main(argv: list[str] | None = None) -> int:
 
 def batch_main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Run benchmark and judge across multiple datasets/models.")
-    parser.add_argument("--video_dirs", nargs="+", default=["falling_off_chair"])
+    parser.add_argument("--datasets", nargs="+", default=["falling_off_chair"],
+                        help="HuggingFace dataset config names to evaluate")
     parser.add_argument("--model_ids", nargs="+", default=["google/gemma-4-E4B-it"])
-    parser.add_argument("--dataset_root", type=Path, default=Path("./dataset"))
     parser.add_argument("--num_frames", type=int, default=8)
     parser.add_argument("--sample_size", type=int, default=1000)
     parser.add_argument("--output_root", type=Path, default=Path("runs"))
@@ -86,14 +88,13 @@ def batch_main(argv: list[str] | None = None) -> int:
     parser.add_argument("--backend", choices=["openai", "medusa"], default=None)
     args = parser.parse_args(argv)
 
-    for video_name in args.video_dirs:
+    for dataset_name in args.datasets:
         from vlm_eval.inference.runner import run_benchmark
         from vlm_eval.judge.runner import run_judge
 
-        video_dir = args.dataset_root / video_name
         for model_id in args.model_ids:
             benchmark_config = BenchmarkConfig(
-                video_dir=video_dir,
+                dataset=dataset_name,
                 model_id=model_id,
                 num_frames=args.num_frames,
                 sample_size=args.sample_size,

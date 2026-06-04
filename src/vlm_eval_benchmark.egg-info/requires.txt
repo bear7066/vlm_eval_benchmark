@@ -1,0 +1,11 @@
+transformers>=4.41
+accelerate>=0.30
+decord>=0.6.0
+numpy>=1.24
+Pillow>=9.5
+openai>=1.0.0
+datasets>=2.14
+python-dotenv>=1.0.0
+torch==2.5.1
+torchvision==0.20.1
+torchaudio==2.5.1

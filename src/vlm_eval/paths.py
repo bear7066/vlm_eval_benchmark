@@ -7,11 +7,15 @@ from pathlib import Path
 from typing import Any
 
 
+HF_REPO_ID = "gnitoahc/vlm-eval-videos"
+
+
 def model_name_from_id(model_id: str) -> str:
     return model_id.split("/")[-1].replace("-it", "")
 
 
 def label_from_video_dir(video_dir: Path) -> str:
+    """Retained for legacy-log parsing only."""
     name = Path(video_dir).resolve().name
     return name if name and name != "." else "default_ground_truth"
 
@@ -31,13 +35,13 @@ def slugify(value: str) -> str:
 
 def build_run_id(
     model_id: str,
-    video_dir: Path,
+    dataset: str,
     num_frames: int,
     now: datetime | None = None,
 ) -> str:
     timestamp = (now or datetime.now()).strftime("%Y%m%d-%H%M%S")
     model_name = slugify(model_name_from_id(model_id))
-    label = slugify(label_from_video_dir(video_dir))
+    label = slugify(dataset)
     return f"{model_name}_{num_frames}frames_{label}_{timestamp}"
 
 
@@ -55,14 +59,13 @@ def read_json(path: Path) -> dict[str, Any]:
 def find_latest_run(
     output_root: Path,
     model_id: str | None = None,
-    video_dir: Path | None = None,
+    dataset: str | None = None,
     sample_fps: float | None = None,
     num_frames: int | None = None,
 ) -> Path | None:
     if not output_root.exists():
         return None
 
-    expected_label = label_from_video_dir(video_dir) if video_dir is not None else None
     candidates: list[Path] = []
 
     for config_path in output_root.glob("*/config.json"):
@@ -73,7 +76,7 @@ def find_latest_run(
 
         if model_id is not None and config.get("model_id") != model_id:
             continue
-        if expected_label is not None and config.get("ground_truth_name") != expected_label:
+        if dataset is not None and config.get("ground_truth_name") != dataset:
             continue
         if sample_fps is not None and float(config.get("sample_fps", -1)) != sample_fps:
             continue
