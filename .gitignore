@@ -8,3 +8,4 @@ runs/
 *.log
 uv.lock
 *.jsonl
+*.egg-info/

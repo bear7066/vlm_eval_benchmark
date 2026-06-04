@@ -1,5 +1,0 @@
-[console_scripts]
-vlm-batch = vlm_eval.cli:batch_main
-vlm-benchmark = vlm_eval.cli:benchmark_main
-vlm-gpu-test = vlm_eval.cli:gpu_test_main
-vlm-judge = vlm_eval.cli:judge_main
