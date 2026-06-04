@@ -1,97 +1,125 @@
-# VLM Eval Benchmark
+# VLM Offline Eval Benchmark
 
-這是一個用於測試影片 VLM (Vision-Language Model) 效能並使用 LLM 進行自動評分的基準測試框架。
+A two-phase offline benchmarking framework for evaluating Vision-Language Models (VLMs) on video action-recognition tasks, with automated LLM-as-a-judge scoring.
 
-### Option A
+## Setup
 
 ```shell
-# 1. 建立虛擬環境並安裝依賴
+# Install dependencies
 uv sync
 
-# 2. 硬體測試 (確認 GPU 可用)
+# Verify GPU availability
 uv run python scripts/gpu_test.py
 ```
 
-### Option B
+### Environment variables
 
-```shell
-# 1. 建立並啟用虛擬環境
-python3 -m venv .venv
-source .venv/bin/activate  # macOS/Linux
-# .venv\Scripts\activate  # Windows
+Create a `.env` file in the project root:
 
-# 2. 安裝依賴
-pip install --upgrade pip
-pip install -r requirements.txt
+```dotenv
+HF_TOKEN=<your_huggingface_token>
 
-# 若要進行開發，建議安裝此專案為可編輯模式
-pip install -e .
+# Required for OpenAI judge models (gpt-4o, gpt-4o-mini, …)
+OPENAI_API_KEY=<your_openai_key>
 
-# 3. 硬體測試 (確認 GPU 可用)
-python3 scripts/gpu_test.py
+# Required for internal Medusa judge models
+OUTER_MEDUSA_ENDPOINT=<endpoint_url>
+OUTER_MEDUSA_API_KEY=<api_key>
 ```
 
 ---
 
-## 執行批次測試
+## Batch Evaluation
 
-如果你有多個模型與多個影片目錄需要測試，請使用批次腳本。這會自動完成「推論」與「評分」的完整流程。
-
-### 使用批次腳本
-你可以編輯 `scripts/run_batch_eval.py` 裡面的 `video_dirs` 與 `model_ids` 清單，然後執行：
+Run inference + judging across all dataset/model combinations in one shot:
 
 ```shell
-# 指定 GPU 並執行批次測試
 CUDA_VISIBLE_DEVICES=0,1,2,3 uv run python scripts/run_batch_eval.py
 ```
 
-### 腳本內容說明
-該腳本會遍歷所有組合並生成對應的報告於 `runs/` 目錄下：
-- **Inference**: 產出 `predictions.jsonl`
-- **Judge**: 產出 `judge_results.jsonl` 與 `judge_summary.json`
+Edit `scripts/run_batch_eval.py` to configure `--datasets` and `--model_ids` before running. Results are written under `runs/`.
 
 ---
 
-## 單項執行指令
+## Single-Run Commands
 
-如果你只想單獨測試特定的模型或影片：
+### 1. Inference (Benchmark)
 
-### 1. 執行基準測試 (Benchmark)
 ```shell
 uv run python scripts/run_benchmark.py \
-  --video_dir ./dataset/climbing_stair \
+  --dataset climbing_ladder \
   --model_id google/gemma-4-E4B-it \
   --num_frames 8
 ```
 
-### 2. 執行評分 (Judge)
+Outputs `runs/<run_id>/predictions.jsonl` and `runs/<run_id>/summary.json`.
+
+**Available datasets:** `climbing_ladder`, `face_planting`, `falling_off_bike`, `falling_off_chair`
+
+**Available VLM models:**
+- `google/gemma-4-E2B-it`
+- `google/gemma-4-E4B-it`
+- `bear7011/gemma4-e2b-webvid4K_FT`
+- `bear7011/gemma4-e4b-webvid4K_FT`
+
+### 2. Judge
+
 ```shell
 uv run python scripts/run_judge.py \
-  --video_dir ./dataset/climbing_stair \
+  --dataset climbing_ladder \
   --model_id google/gemma-4-E4B-it \
   --judge_model gpt-4o
 ```
 
-`judge_results.jsonl` 會替每筆 prediction 寫入 `bleu`、`rouge_l`、`cider`，並同步保留在 `text_metrics`；`judge_summary.json` 會寫入平均 BLEU、corpus BLEU、ROUGE-L、CIDEr。
+Outputs `runs/<run_id>/judge_results.jsonl` and `runs/<run_id>/judge_summary.json`. Each result includes `bleu`, `rouge_l`, and `cider` text metrics alongside the LLM score.
 
-如果只想補 BLEU/ROUGE/CIDEr，不呼叫 Judge LLM：
+To compute text metrics only (skip the LLM judge call):
 
 ```shell
 uv run python scripts/run_judge.py \
-  --video_dir ./dataset/climbing_stair \
+  --dataset climbing_ladder \
   --model_id google/gemma-4-E4B-it \
   --skip_llm_judge
 ```
 
+**Available judge models:** `gpt-4o`, `gpt-4o-mini`, `gpt-3.5-turbo`, `gpt-5`, `gpt-oss-20b`, `gpt-oss-120b`, `Google-Gemma-3-27B`, `Llama-3.1-70B`, `Llama-3.1-405B-Instruct-FP8`
+
 ---
 
-## 專案結構
+## CLI Entry Points
 
-- `src/vlm_eval/`: 核心邏輯代碼。
-- `scripts/`:
-    - `run_batch_eval.py`: **主要入口**，用於跑多模型、多數據集的批次任務。
-    - `run_benchmark.py`: 單次執行影片推論任務。
-    - `run_judge.py`: 單次執行 LLM 評分任務。
-    - `gpu_test.py`: GPU 效能基準測試與環境檢查。
-- `dataset/`: 存放影片數據集的目錄。
-- `runs/`: 存放所有測試結果與 Log。
+After `uv sync`, the following commands are available directly:
+
+| Command                | Equivalent script           |
+| ---------------------- | --------------------------- |
+| `uv run vlm-benchmark` | `scripts/run_benchmark.py`  |
+| `uv run vlm-judge`     | `scripts/run_judge.py`      |
+| `uv run vlm-batch`     | `scripts/run_batch_eval.py` |
+| `uv run vlm-gpu-test`  | `scripts/gpu_test.py`       |
+
+---
+
+## Project Structure
+
+```
+src/vlm_eval/
+  config.py           # BenchmarkConfig and JudgeConfig dataclasses
+  inference/
+    runner.py         # Inference loop
+    gemma.py          # HuggingFace VLM wrapper
+  judge/
+    runner.py         # Judge loop
+    prompts.py        # LLM judge prompt template
+    text_metrics.py   # BLEU / ROUGE-L / CIDEr computation
+  llm/
+    factory.py        # Judge LLM backend routing (OpenAI / Medusa)
+  video.py            # Frame sampling via decord
+  metrics.py          # VideoResult dataclass + summarize_results()
+  paths.py            # Run directory naming helpers
+scripts/
+  run_batch_eval.py   # Main entry point for multi-model, multi-dataset runs
+  run_benchmark.py    # Single inference run
+  run_judge.py        # Single judge run
+  gpu_test.py         # GPU availability check
+runs/                 # All benchmark outputs (predictions, judge results, summaries)
+```
