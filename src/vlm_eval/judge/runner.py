@@ -11,7 +11,7 @@ from vlm_eval.judge.prompts import build_judge_prompt
 from vlm_eval.judge.text_metrics import score_items
 from vlm_eval.llm.factory import get_llm_instance
 from vlm_eval.logging_utils import configure_logging
-from vlm_eval.paths import find_latest_run, label_from_video_dir, model_name_from_id
+from vlm_eval.paths import find_latest_run, model_name_from_id
 
 
 def _write_json(path: Path, data: dict[str, Any]) -> None:
@@ -47,11 +47,11 @@ def resolve_prediction_source(config: JudgeConfig) -> tuple[Path | None, Path | 
         legacy_path = Path(config.legacy_log_path)
         return legacy_path, legacy_path.parent, True
 
-    if config.model_id is not None and config.video_dir is not None:
+    if config.model_id is not None and config.dataset is not None:
         run_dir = find_latest_run(
             output_root=Path(config.output_root),
             model_id=config.model_id,
-            video_dir=Path(config.video_dir),
+            dataset=config.dataset,
             sample_fps=config.sample_fps,
             num_frames=config.num_frames,
         )
@@ -60,7 +60,7 @@ def resolve_prediction_source(config: JudgeConfig) -> tuple[Path | None, Path | 
 
         legacy_log = _find_latest_legacy_log(
             model_id=config.model_id,
-            video_dir=Path(config.video_dir),
+            dataset=config.dataset,
             sample_fps=config.sample_fps,
             num_frames=config.num_frames,
         )
@@ -72,19 +72,18 @@ def resolve_prediction_source(config: JudgeConfig) -> tuple[Path | None, Path | 
 
 def _find_latest_legacy_log(
     model_id: str,
-    video_dir: Path,
+    dataset: str,
     sample_fps: float | None,
     num_frames: int | None,
 ) -> Path | None:
-    label = label_from_video_dir(video_dir)
     model_name = model_name_from_id(model_id)
     candidates: list[Path] = []
 
     if sample_fps is not None:
-        candidates.extend(Path.cwd().glob(f"{model_name}-{sample_fps:g}fps/{label}.log"))
+        candidates.extend(Path.cwd().glob(f"{model_name}-{sample_fps:g}fps/{dataset}.log"))
     if num_frames is not None:
-        candidates.extend(Path.cwd().glob(f"{model_name}-{num_frames}frames/{label}.log"))
-    candidates.extend(Path.cwd().glob(f"{model_name}-*/{label}.log"))
+        candidates.extend(Path.cwd().glob(f"{model_name}-{num_frames}frames/{dataset}.log"))
+    candidates.extend(Path.cwd().glob(f"{model_name}-*/{dataset}.log"))
 
     existing = [path for path in candidates if path.exists()]
     if not existing:

@@ -32,7 +32,7 @@ def summarize_results(
     sample_size: int,
     hardware_name: str,
     model_id: str,
-    video_dir: str,
+    dataset: str,
     num_frames: int,
     peak_vram_gb: float | None,
 ) -> dict[str, Any]:
@@ -68,7 +68,7 @@ def summarize_results(
         "input": {
             "model": model_id,
             "hardware_name": hardware_name,
-            "video_dir": video_dir,
+            "dataset": dataset,
             "num_frames": num_frames,
             "sample_size": sample_size,
         },

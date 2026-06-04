@@ -12,8 +12,8 @@ from vlm_eval.hardware import get_hardware_name, get_peak_vram_gb, reset_peak_me
 from vlm_eval.inference.gemma import HuggingFaceVLM
 from vlm_eval.logging_utils import configure_logging, quiet_third_party_loggers
 from vlm_eval.metrics import VideoResult, summarize_results
-from vlm_eval.paths import build_run_id, ensure_run_dir, label_from_video_dir, slugify
-from vlm_eval.video import find_videos, sample_frames
+from vlm_eval.paths import HF_REPO_ID, build_run_id, ensure_run_dir, slugify
+from vlm_eval.video import sample_frames
 
 
 def _json_default(value):
@@ -42,14 +42,41 @@ def _load_dotenv_if_available() -> None:
     load_dotenv()
 
 
+def _load_hf_rows(dataset_name: str, hf_token: str | None) -> list[dict]:
+    """Stream metadata rows from HuggingFace; collect into a list for sampling."""
+    from datasets import load_dataset
+
+    hf_ds = load_dataset(
+        HF_REPO_ID,
+        name=dataset_name,
+        streaming=True,
+        token=hf_token,
+    )
+    return list(hf_ds["validation"])
+
+
+def _download_video(filename: str, label: str, hf_token: str | None) -> Path:
+    """Download a single video from HuggingFace and return its local cached path."""
+    from huggingface_hub import hf_hub_download
+
+    path_in_repo = f"data/{label}/validation/{filename}"
+    local = hf_hub_download(
+        repo_id=HF_REPO_ID,
+        repo_type="dataset",
+        filename=path_in_repo,
+        token=hf_token,
+    )
+    return Path(local)
+
+
 def run_benchmark(config: BenchmarkConfig) -> Path | None:
     _load_dotenv_if_available()
     os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
     quiet_third_party_loggers()
 
-    video_dir = Path(config.video_dir)
-    ground_truth_name = label_from_video_dir(video_dir)
-    run_id = slugify(config.run_id) if config.run_id else build_run_id(config.model_id, video_dir, config.num_frames)
+    dataset_name = config.dataset
+    ground_truth_name = dataset_name
+    run_id = slugify(config.run_id) if config.run_id else build_run_id(config.model_id, dataset_name, config.num_frames)
     try:
         run_dir = ensure_run_dir(Path(config.output_root), run_id)
     except FileExistsError:
@@ -59,7 +86,6 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
     configure_logging(run_dir / "benchmark.log", mode="a")
 
     config_data = asdict(config)
-    config_data["video_dir"] = str(video_dir)
     config_data["output_root"] = str(config.output_root)
     config_data["run_id"] = run_id
     config_data["ground_truth_name"] = ground_truth_name
@@ -70,18 +96,25 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
         predictions_path.unlink()
     predictions_path.touch()
 
-    video_paths = find_videos(video_dir)
+    hf_token = os.environ.get("HF_TOKEN")
+    hardware_name = get_hardware_name()
+
     logging.info("Run directory: %s", run_dir)
     logging.info("")
-    logging.info("Found %s videos under %s", len(video_paths), video_dir)
-    if not video_paths:
-        logging.error("No video files found.")
+    logging.info("Loading metadata from HuggingFace dataset '%s' (config: %s)", HF_REPO_ID, dataset_name)
+
+    try:
+        all_rows = _load_hf_rows(dataset_name, hf_token)
+    except Exception as exc:
+        logging.error("Failed to load dataset metadata: %s", exc)
+        return None
+
+    logging.info("Found %s videos in dataset '%s'", len(all_rows), dataset_name)
+    if not all_rows:
+        logging.error("No entries found in dataset.")
         return run_dir
 
     logging.info("Loading model and processor: %s", config.model_id)
-
-    hf_token = os.environ.get("HF_TOKEN")
-    hardware_name = get_hardware_name()
 
     try:
         model = HuggingFaceVLM(config.model_id, hf_token=hf_token)
@@ -91,9 +124,9 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
 
     reset_peak_memory_stats()
 
-    sample_size = min(config.sample_size, len(video_paths))
+    sample_size = min(config.sample_size, len(all_rows))
     rng = random.Random(config.seed)
-    sampled_videos = rng.sample(video_paths, sample_size)
+    sampled_rows = rng.sample(all_rows, sample_size)
 
     logging.info("Starting benchmark with %s sampled videos.", sample_size)
     logging.info("Hardware Name: %s", hardware_name)
@@ -101,10 +134,28 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
 
     results: list[VideoResult] = []
 
-    for index, video_path in enumerate(sampled_videos, start=1):
+    for index, row in enumerate(sampled_rows, start=1):
+        filename = row["filename"]
+        video_label = row["label"]
+        video_ref = f"data/{video_label}/validation/{filename}"
+
         logging.info("")
         logging.info("=" * 60)
-        logging.info("[%s/%s] Processing video: %s", index, sample_size, video_path)
+        logging.info("[%s/%s] Processing video: %s", index, sample_size, video_ref)
+
+        try:
+            video_path = _download_video(filename, video_label, hf_token)
+        except Exception as exc:
+            logging.error("Could not download video %s: %s", video_ref, exc)
+            result = VideoResult(
+                video=video_ref,
+                label=video_label,
+                status="error",
+                error=f"Download failed: {exc}",
+            )
+            results.append(result)
+            _append_jsonl(predictions_path, result.to_dict())
+            continue
 
         frames, video_duration_sec, total_video_frames, original_fps = sample_frames(
             video_path,
@@ -112,8 +163,8 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
         )
         if frames is None:
             result = VideoResult(
-                video=str(video_path),
-                label=ground_truth_name,
+                video=video_ref,
+                label=video_label,
                 status="error",
                 error="Could not sample frames",
             )
@@ -132,8 +183,8 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
             sampled_fps = len(frames) / elapsed_sec if elapsed_sec > 0 else 0.0
 
             result = VideoResult(
-                video=str(video_path),
-                label=ground_truth_name,
+                video=video_ref,
+                label=video_label,
                 status="success",
                 response=generated["response"],
                 query_latency_sec=elapsed_sec,
@@ -166,8 +217,8 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
         except Exception as exc:
             logging.error("Inference failed: %s", exc)
             result = VideoResult(
-                video=str(video_path),
-                label=ground_truth_name,
+                video=video_ref,
+                label=video_label,
                 status="error",
                 error=str(exc),
                 video_duration_sec=video_duration_sec,
@@ -184,7 +235,7 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
         sample_size=sample_size,
         hardware_name=hardware_name,
         model_id=config.model_id,
-        video_dir=str(video_dir),
+        dataset=dataset_name,
         num_frames=config.num_frames,
         peak_vram_gb=get_peak_vram_gb(),
     )
@@ -196,7 +247,7 @@ def run_benchmark(config: BenchmarkConfig) -> Path | None:
     logging.info("Input")
     logging.info("\tModel: %s", config.model_id)
     logging.info("\tHardware Name  : %s", hardware_name)
-    logging.info("\tVideo Dir      : %s", video_dir)
+    logging.info("\tDataset        : %s", dataset_name)
     logging.info("\tFixed Frames   : %s", config.num_frames)
 
     output = summary["output"]
