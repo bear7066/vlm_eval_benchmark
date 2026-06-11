@@ -93,3 +93,37 @@ def sample_frames(video_path: Path, num_frames: int = 8):
     frames = video_reader.get_batch(indices).asnumpy()
     pil_frames = [Image.fromarray(frame) for frame in frames]
     return pil_frames, video_duration_sec, total_frames, original_fps
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Sample frames from a video and save them as images for inspection."
+    )
+    parser.add_argument("video_path", type=Path, help="Path to the video file.")
+    parser.add_argument("--num_frames", "-n", type=int, default=8, help="Number of frames to sample.")
+    parser.add_argument(
+        "--output_dir",
+        "-o",
+        type=Path,
+        default=None,
+        help="Directory to write sampled frames to (default: <video_stem>_frames next to the video).",
+    )
+    args = parser.parse_args()
+
+    output_dir = args.output_dir or args.video_path.with_name(f"{args.video_path.stem}_frames")
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    pil_frames, duration_sec, total_frames, fps = sample_frames(args.video_path, args.num_frames)
+    if pil_frames is None:
+        raise SystemExit(f"Failed to sample frames from {args.video_path}")
+
+    print(f"video: {args.video_path}")
+    print(f"total_frames: {total_frames}, fps: {fps}, duration_sec: {duration_sec}")
+    print(f"sampled {len(pil_frames)} frame(s) -> {output_dir}")
+
+    for i, frame in enumerate(pil_frames):
+        frame_path = output_dir / f"frame_{i:03d}.png"
+        frame.save(frame_path)
+        print(f"  saved {frame_path}")
