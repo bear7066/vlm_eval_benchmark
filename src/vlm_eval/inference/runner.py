@@ -7,6 +7,8 @@ import random
 from dataclasses import asdict
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 from vlm_eval.config import BenchmarkConfig
 from vlm_eval.hardware import get_hardware_name, get_peak_vram_gb, reset_peak_memory_stats
 from vlm_eval.inference.gemma import HuggingFaceVLM
@@ -32,14 +34,6 @@ def _append_jsonl(path: Path, data: dict) -> None:
     with path.open("a", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, default=_json_default)
         f.write("\n")
-
-
-def _load_dotenv_if_available() -> None:
-    try:
-        from dotenv import load_dotenv
-    except ImportError:
-        return
-    load_dotenv()
 
 
 def _load_hf_rows(dataset_name: str, hf_token: str | None) -> list[dict]:
@@ -70,7 +64,7 @@ def _download_video(filename: str, label: str, hf_token: str | None) -> Path:
 
 
 def run_benchmark(config: BenchmarkConfig) -> Path | None:
-    _load_dotenv_if_available()
+    load_dotenv()
     os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
     quiet_third_party_loggers()
 

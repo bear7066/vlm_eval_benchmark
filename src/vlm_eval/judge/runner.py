@@ -5,6 +5,8 @@ import logging
 from pathlib import Path
 from typing import Any
 
+from dotenv import load_dotenv
+
 from vlm_eval.config import JudgeConfig
 from vlm_eval.judge.parser import extract_score, load_predictions_jsonl, parse_legacy_log_file
 from vlm_eval.judge.prompts import build_judge_prompt
@@ -24,14 +26,6 @@ def _append_jsonl(path: Path, data: dict[str, Any]) -> None:
     with path.open("a", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False)
         f.write("\n")
-
-
-def _load_dotenv_if_available() -> None:
-    try:
-        from dotenv import load_dotenv
-    except ImportError:
-        return
-    load_dotenv()
 
 
 def resolve_prediction_source(config: JudgeConfig) -> tuple[Path | None, Path | None, bool]:
@@ -92,7 +86,7 @@ def _find_latest_legacy_log(
 
 
 def run_judge(config: JudgeConfig) -> Path | None:
-    _load_dotenv_if_available()
+    load_dotenv()
     source_path, run_dir, is_legacy = resolve_prediction_source(config)
 
     if source_path is None or run_dir is None:
