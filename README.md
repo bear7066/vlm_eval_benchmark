@@ -115,6 +115,7 @@ src/vlm_eval/
     factory.py        # Judge LLM backend routing (OpenAI / Medusa)
   video.py            # Frame sampling via decord
   metrics.py          # VideoResult dataclass + summarize_results()
+  inspect.py          # Standalone script for single inference, uv run python -m src.vlm_eval.inspect --help
   paths.py            # Run directory naming helpers
 scripts/
   run_batch_eval.py   # Main entry point for multi-model, multi-dataset runs
