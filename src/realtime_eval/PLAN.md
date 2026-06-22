@@ -117,8 +117,7 @@ uv run python -m realtime_eval config init <config.json>   # write a default con
 uv run python -m realtime_eval sweep   <config.json>
 uv run python -m realtime_eval analyze <run_dir>
 ```
-The sweep is fully described by a JSON config (`config init` writes the defaults;
-see also `configs/sweep.example.json`): a required `videos` path, an optional
+The sweep is fully described by a JSON config: a required `videos` path, an optional
 `limit`, and any `SweepConfig` field (omitted fields keep their defaults).
 Unknown keys fail loudly to catch typos.
 If `realtime_eval` is not importable, re-register the new package: `uv sync`.
