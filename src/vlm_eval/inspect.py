@@ -24,7 +24,7 @@ from vlm_eval.paths import build_run_id, display_label_from_video_path, ensure_r
 from vlm_eval.video import sample_frames
 
 
-DEFAULT_PROMPT="""Detect if any accident happens (e.g. faceplanting, falling, explosion), if yes, describe in one concise sentence, otherwise, say everything is normal."""
+DEFAULT_PROMPT="Detect if any accident happens (e.g. faceplanting, falling, explosion), if yes, describe in one concise sentence, otherwise, say everything is normal."
 
 def _write_json(path: Path, data: dict) -> None:
     with path.open("w", encoding="utf-8") as f:
