@@ -15,6 +15,7 @@ from realtime_eval.core.config import DEFAULT_REALTIME_PROMPT, SweepConfig
 from realtime_eval.core.metrics import RealtimeResult
 from realtime_eval.pipeline.analyze import analyze
 from realtime_eval.pipeline.sweep import run_single, run_sweep
+from realtime_eval.pipeline.sweep_rt import run_sweep_rt
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -36,6 +37,18 @@ def _build_parser() -> argparse.ArgumentParser:
         ),
     )
     sweep.add_argument("config", type=Path, help="Path to a JSON sweep config file.")
+
+    sweep_rt = sub.add_parser(
+        "sweep-rt",
+        help="Run the benchmark sweep with the TensorRT-LLM backend.",
+        description=(
+            "Same as 'sweep' but serves each model with TensorRT-LLM instead of "
+            "HuggingFace. Takes the identical JSON config (a required 'videos' "
+            "path, an optional 'limit', and any SweepConfig field). Requires "
+            "tensorrt-llm installed and an Ampere (sm_80+) GPU."
+        ),
+    )
+    sweep_rt.add_argument("config", type=Path, help="Path to a JSON sweep config file.")
 
     single = sub.add_parser(
         "single", help="Run one model on one video to verify the pipeline."
@@ -165,6 +178,12 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "sweep":
         videos, config, limit = _load_sweep_config(args.config)
         run_dir = run_sweep(videos, config, video_limit=limit)
+        print(analyze(run_dir, threshold=config.realtime_threshold))
+        return 0
+
+    if args.command == "sweep-rt":
+        videos, config, limit = _load_sweep_config(args.config)
+        run_dir = run_sweep_rt(videos, config, video_limit=limit)
         print(analyze(run_dir, threshold=config.realtime_threshold))
         return 0
 
